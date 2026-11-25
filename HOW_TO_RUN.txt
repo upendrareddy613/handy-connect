@@ -1,0 +1,56 @@
+﻿===================================================================
+      HANDYCONNECT - HOW TO RUN THIS PROJECT ANY TIME
+===================================================================
+
+This project consists of two parts:
+1. Django REST Framework Backend (Python)
+2. React + Vite Frontend (JavaScript / Node.js)
+
+-------------------------------------------------------------------
+OPTION 1: THE EASIEST WAY (1-Click Run on this Computer)
+-------------------------------------------------------------------
+Just double-click the file named:
+  "Start_HandyConnect.bat" on your Desktop.
+
+It will automatically:
+- Start the Django backend
+- Start the React frontend
+- Open the website in your browser at: http://localhost:5173/
+
+-------------------------------------------------------------------
+OPTION 2: HOW TO RUN MANUALLY (On Any Computer)
+-------------------------------------------------------------------
+
+REQUIREMENTS:
+- Python 3.10+ installed
+- Node.js (v18+) installed
+
+STEP 1: Start Backend (Django)
+1. Open a terminal / command prompt.
+2. Navigate to the backend folder:
+   cd backend
+3. Install dependencies (if running for first time on new PC):
+   pip install django djangorestframework django-cors-headers
+4. Run migrations:
+   python manage.py migrate
+5. Start the server:
+   python manage.py runserver 8000
+   Backend runs at: http://127.0.0.1:8000/
+
+STEP 2: Start Frontend (React + Vite)
+1. Open a SECOND terminal / command prompt window.
+2. Navigate to the frontend folder:
+   cd frontend
+3. Install dependencies (if running for first time on new PC):
+   npm install
+4. Start the development server:
+   npm run dev
+   Frontend runs at: http://localhost:5173/
+
+-------------------------------------------------------------------
+DEMO LOGIN CREDENTIALS:
+-------------------------------------------------------------------
+- Customer:       username: upendra      | password: customer123
+- Service Pro:    username: rahul_kumar  | password: provider123
+- Administrator:  username: admin        | password: admin123
+===================================================================
