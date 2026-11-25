@@ -1,0 +1,12 @@
+{
+  "name": "library-management-system",
+  "version": "1.0.0",
+  "description": "Full-stack Library Management System with User Registration, Auth, Book Borrowing and Inventory Management",
+  "scripts": {
+    "server": "npm --prefix server start",
+    "server:dev": "npm --prefix server run dev",
+    "server:seed": "npm --prefix server run seed",
+    "client": "npm --prefix client dev",
+    "client:build": "npm --prefix client run build"
+  }
+}

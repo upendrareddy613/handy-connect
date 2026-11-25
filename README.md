@@ -1,149 +1,130 @@
-# HandyConnect – Household Services Booking Web Application
-### MCA Full-Stack Project: "HandyConnect – An Online Household Services Booking and Management System"
+# Athena LMS - Library Management System
+
+A full-stack, responsive Library Management System built with **React**, **Vite**, **Tailwind CSS**, and **Node.js / Express**.
+
+Users must first **register** and **log in** before accessing the library catalog, searching for required books, and borrowing or returning them.
 
 ---
 
-## 📌 Project Overview
-**HandyConnect** is a modern, full-stack marketplace web application connecting homeowners with verified local household service professionals (plumbers, electricians, cleaners, carpenters, painters, AC technicians, etc.). 
+## 🌟 Key Features
 
-The platform supports 3 distinct user roles with dedicated portals:
-1. **👤 Customer**: Search & filter services, schedule appointments, choose convenient time slots, track live job status, pay securely online or COD, and write reviews.
-2. **🔧 Service Provider**: Manage professional profile, accept/reject booking requests, manage job lifecycle (*Confirmed → On The Way → In Progress → Completed*), track daily bookings and total earnings.
-3. **👨‍💼 Administrator**: System oversight, approve/reject newly registered providers (Verification Desk), manage service categories, inspect global bookings, and review revenue reports.
+1. **Authentication & Authorization**:
+   - Secure account registration (Member or Librarian/Admin role).
+   - Password hashing with `bcryptjs` and token-based authentication via **JWT**.
+   - Auto-generated Unique Library Membership IDs (e.g. `LIB-2026-XXXX`).
+   - Instant Demo quick-fill credentials for quick testing.
 
----
+2. **Book Catalog & Discovery ("Access What He Required")**:
+   - Search books instantly by **Title**, **Author**, or **ISBN**.
+   - Filter by Genre / Category (Computer Science, Fiction, Science, History, Philosophy, Business, etc.).
+   - Toggle to filter only available (in-stock) books.
+   - Sort by Newest, Title (A-Z), Author (A-Z), and Publication Year.
+   - Comprehensive book modal with synopsis, ISBN, publication year, and available copies.
 
-## 🏗️ Architecture & Technology Stack
+3. **Borrowing & Return System**:
+   - 1-Click book borrowing with automatic inventory stock reduction.
+   - 14-day loan duration with automatic due date computation.
+   - Maximum active loan limits to prevent hoarding.
+   - **My Loans** dashboard to view active loans, remaining days, overdue warnings, and returned history.
+   - 1-Click book return that immediately restores catalog stock.
 
-```
-           HANDYCONNECT WEB PLATFORM
-                      │
-       ┌──────────────┴──────────────┐
-       │                             │
-   Customer                       Provider
-       │                             │
-       └──────────────┬──────────────┘
-                      │
-            React SPA (Vite + Tailwind CSS + Lucide Icons)
-                      │  (REST API with Token Authentication)
-                      ▼
-         Django REST Framework API (Python 3)
-      ┌───────────────┼───────────────┐
-    Accounts      Bookings        Services
-   Providers      Payments        Reviews
-      └───────────────┼───────────────┘
-                      │
-          SQLite / PostgreSQL Database
-```
-
-* **Frontend**: React 19, Vite, Tailwind CSS v4, Lucide React Icons, React Router v7, Axios
-* **Backend**: Python 3, Django 6.1, Django REST Framework, Django CORS Headers, Token Authentication
-* **Database**: SQLite (built-in, zero-setup, immediately portable) / PostgreSQL ready
+4. **Librarian / Admin Management Console**:
+   - Real-time KPI stats (Total Titles, Active Loans Out, Returned Loans, Overdue Loans).
+   - Add new books to the catalog with custom covers, categories, and inventory copies.
+   - Edit existing book metadata and adjust stock.
+   - Delete books (safeguarded against deleting books currently on active loan).
+   - System-wide loan transactions log across all members.
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### 1. Backend Setup & Run (Terminal 1)
-```powershell
-cd backend
+### Prerequisites
+- Node.js (v18 or higher)
+- npm (v9 or higher)
 
-# 1. Run migrations (already applied)
-python manage.py migrate
-
-# 2. Seed initial data (categories, verified providers, sample bookings)
-python seed_data.py
-
-# 3. Start Django development server (runs on port 8000)
-python manage.py runserver
+### 1. Start the Backend API Server
+Open a terminal in the root directory:
+```bash
+cd server
+npm start
 ```
+*The server will start on port `5000` (Health check: `http://localhost:5000/api/health`).*
 
-Backend API will run at: `http://127.0.0.1:8000/`
-Django Admin Panel will run at: `http://127.0.0.1:8000/admin/`
+> **Note**: The database is already pre-seeded with 16 books and demo accounts. To re-seed at any time:
+> ```bash
+> cd server
+> npm run seed
+> ```
 
----
-
-### 2. Frontend Setup & Run (Terminal 2)
-```powershell
-cd frontend
-
-# 1. Start Vite development server
+### 2. Start the Frontend Client
+In a second terminal window:
+```bash
+cd client
 npm run dev
 ```
-
-Frontend will run at: `http://localhost:5173/`
+*Open `http://localhost:5173` in your browser.*
 
 ---
 
-## 🔑 Pre-Seeded Demo Accounts (1-Click Login Available)
+## 🔑 Demo Credentials
 
-For viva demonstration and evaluation, the login page contains **1-Click Quick Demo Login** buttons:
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Reader / Member** | `member@library.com` | `member123` |
+| **Chief Librarian (Admin)** | `admin@library.com` | `admin123` |
 
-| Role | Username | Password | Notes |
-| :--- | :--- | :--- | :--- |
-| **👨‍💼 Admin** | `admin` | `admin123` | Full admin dashboard & verification desk |
-| **👤 Customer** | `upendra` | `customer123` | Active customer with past & upcoming bookings |
-| **👤 Customer 2** | `priya` | `customer123` | Alternate customer account |
-| **🔧 Provider (Approved)** | `rahul_kumar` | `provider123` | Rahul Kumar (Plumbing pro with 4.8★ rating) |
-| **🔧 Provider (Approved)** | `anil_verma` | `provider123` | Anil Verma (Electrician with 4.9★ rating) |
-| **🔧 Provider (Pending)** | `manoj_das` | `provider123` | Manoj Das (Waiting for Admin approval) |
+*(You can also click the quick-login buttons on the Sign In page or register any new account!)*
 
 ---
 
 ## 📂 Project Structure
 
-```text
-Handy Connect/
-├── backend/
-│   ├── manage.py
-│   ├── seed_data.py              # Realistic sample data populator
-│   ├── handyconnect_backend/     # Settings, URL routing, WSGI/ASGI
-│   ├── accounts/                 # User model, roles, Auth & JWT/Tokens
-│   ├── services/                 # Categories & services catalog
-│   ├── providers/                # Provider profiles, availability, verification
-│   ├── bookings/                 # Booking workflow, state transitions, stats
-│   ├── payments/                 # Multi-method payment processor & receipts
-│   └── reviews/                  # Ratings & customer feedback
-│
-├── frontend/
-│   ├── package.json
-│   ├── vite.config.js
+```
+lms/
+├── server/
 │   ├── src/
-│   │   ├── api/client.js         # Axios API client with token interceptor
-│   │   ├── context/AuthContext.jsx # Role-aware authentication context
-│   │   ├── components/           # Navbar, Footer, StatusBadge, Modals
-│   │   │   ├── BookingModal.jsx  # 6-step interactive booking modal
-│   │   │   ├── PaymentModal.jsx  # UPI/QR, Cards, COD checkout & receipts
-│   │   │   └── ReviewModal.jsx   # 5-star interactive rating modal
-│   │   └── pages/                # Home, Services, Providers, Dashboards
-│
+│   │   ├── config/db.js          # Persistent JSON-backed DB with Collection API
+│   │   ├── middleware/auth.js    # JWT verification and Admin guards
+│   │   ├── routes/auth.js        # Register, Login, Me endpoints
+│   │   ├── routes/books.js       # Book CRUD, search & filtering
+│   │   ├── routes/loans.js       # Borrow, return, user loans & admin logs
+│   │   ├── seed.js               # Database seeding script
+│   │   └── server.js             # Express server entry point
+│   ├── data/db.json              # Persistent database file
+│   └── package.json
+├── client/
+│   ├── src/
+│   │   ├── components/           # Navbar, BookCard, Modals, Toast
+│   │   ├── pages/                # Login, Register, Catalog, MyLoans, Admin
+│   │   ├── context/AuthContext   # Global auth state and notifications
+│   │   ├── services/api.js       # API client with token injection
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── tailwind.config.js
+│   └── package.json
 └── README.md
 ```
 
 ---
 
-## 🔄 Core Booking Lifecycle Workflow
+## 📡 REST API Reference
 
-```mermaid
-stateDiagram-v2
-    [*] --> PENDING: Customer books service
-    PENDING --> CONFIRMED: Provider accepts
-    PENDING --> CANCELLED: Customer cancels / Provider rejects
-    CONFIRMED --> ON_THE_WAY: Provider on the way
-    ON_THE_WAY --> SERVICE_STARTED: Service in progress
-    SERVICE_STARTED --> COMPLETED: Service completed
-    COMPLETED --> REVIEWED: Customer reviews provider
-    COMPLETED --> [*]
-    CANCELLED --> [*]
-```
+### Authentication
+- `POST /api/auth/register` — Register a new member or admin
+- `POST /api/auth/login` — Sign in and retrieve JWT token
+- `GET /api/auth/me` — Retrieve current authenticated profile
 
----
+### Books Catalog
+- `GET /api/books` — List books with `search`, `category`, `availableOnly`, `sort`
+- `GET /api/books/:id` — Get single book details
+- `POST /api/books` *(Admin)* — Add a new book
+- `PUT /api/books/:id` *(Admin)* — Edit book details & stock
+- `DELETE /api/books/:id` *(Admin)* — Remove book from catalog
 
-## 🧪 Automated Testing
-
-To run the backend test suite:
-```powershell
-cd backend
-python manage.py test
-```
-All tests verify role-based access, booking state machines, payment reconciliation, and review integrity.
+### Circulation / Loans
+- `POST /api/loans/borrow/:bookId` — Borrow a book (14-day loan)
+- `POST /api/loans/return/:loanId` — Return a borrowed book
+- `GET /api/loans/my-loans` — List current user's loans
+- `GET /api/loans/all` *(Admin)* — List all system loans and statistics
